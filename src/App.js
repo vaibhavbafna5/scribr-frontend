@@ -5,9 +5,11 @@ import styled from 'styled-components';
 import './App.css'
 
 // API ENDPOINT
+const BASE_ENDPOINT = 'https://salty-spire-03731.herokuapp.com/'
 const SUGGESTIONS_ENDPOINT = 'https://salty-spire-03731.herokuapp.com/suggestions'
 const UPDATE_ENDPOINT = 'https://salty-spire-03731.herokuapp.com/suggestions/update'
 
+// endpoints for local testing
 // const SUGGESTIONS_ENDPOINT = 'http://localhost:5000/suggestions'
 // const UPDATE_ENDPOINT = 'http://localhost:5000/update/'
 
@@ -47,6 +49,14 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
+        // warm up the api
+        axios.get(BASE_ENDPOINT, {}
+        ).then(response => {
+            console.log("RESPONSE: ", response);
+        }).catch(error => {
+            console.log("ERROR: ", error);
+        })
+
         this.state = {
             text: '',
             mostRecentWord: '',
@@ -132,7 +142,7 @@ class App extends React.Component {
                     <h1 className="App" style={{paddingLeft: '25px'}}>Scribr</h1>
                     <p className="App" style={{paddingLeft: '25px'}}>A note-taking tool for scribes.</p>
                     <div>
-                        {/* notetaking area */}
+                        {/* Notetaking Area */}
                         <TextAreaDiv>
                             <TextArea rows="28" cols="85" value={this.state.text} onChange={this.onTextChange.bind(this)}>
                             </TextArea>
